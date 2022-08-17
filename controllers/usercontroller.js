@@ -8,8 +8,12 @@ const userController = {
     },
     getAllUsers(req,res){
         User.find({})
-        .populate({path:'thoughts', select:'-__v'})
-        .populate({path:'friends',select:'-__v'})
+        .populate({
+            path:'thoughts', 
+            select:'-__v'})
+        .populate({
+            path:'friends',
+            select:'-__v'})
         .select('-__v')
         .then(data => res.json(data))
         .catch((err) => {
@@ -19,8 +23,12 @@ const userController = {
     },
     getSingleUser(req,res){
         User.findOne({_id:req.params.userId})
-        .populate({path: 'thoughts', select: '-__v'})
-        .populate({path: 'friends', select: '-__v'})
+        .populate({
+            path: 'thoughts', 
+            select: '-__v'})
+        .populate({
+            path: 'friends', 
+            select: '-__v'})
         .select('-__v')
         .then(data => res.json(data))
         .catch((err) =>{
