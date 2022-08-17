@@ -9,8 +9,8 @@ const thoughtsController = {
                 {$push: { thoughts: data_id}},
                 {new:true});
         })
-        .then((user) => {
-            if(!user){
+        .then((data) => {
+            if(!data){
                 return res.status(404).json({message:"We found a error!"});
             }
             res.json({message:"Message created!"});
@@ -46,7 +46,6 @@ const thoughtsController = {
         .catch(err =>{
             console.log(err);
             res.status(404).json({message:"We found a error!"})
-            return;
         });
     },
     updateThoughts(req,res){
@@ -59,7 +58,6 @@ const thoughtsController = {
         .catch(err =>{
             console.log(err);
             res.status(404).json({message:"We found a error!"})
-            return;
         })
     },
     addReaction(req,res){
@@ -72,7 +70,6 @@ const thoughtsController = {
         .catch(err =>{
             console.log(err);
             res.status(404).json({message:"We found a error!"})
-            return;
         })
     },
     deleteReaction(req,res){
@@ -85,10 +82,9 @@ const thoughtsController = {
         .catch(err =>{
             console.log(err);
             res.status(404).json({message:"We found a error!"})
-            return;
         })
     }
 
-}
+};
 
 module.exports = thoughtsController;
