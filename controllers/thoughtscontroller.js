@@ -3,14 +3,14 @@ const { User, Thoughts, Reaction } = require('../models');
 const thoughtsController = {
     addNewThoughts(req,res) {
         Thoughts.create(req.body)
-        .then((data) => {
+        .then((thoughtData) => {
             return User.findOneAndUpdate(
                 {_id:req.body.userId},
-                {$push: { thoughts: data_id}},
+                {$push: { thoughts: req.params.thoughtsId}},
                 {new:true});
         })
-        .then((data) => {
-            if(!data){
+        .then((thoughtData) => {
+            if(!thoughtData){
                 return res.status(404).json({message:"We found a error!"});
             }
             res.json({message:"Message created!"});
@@ -32,6 +32,10 @@ const thoughtsController = {
     },
     getSingleThought(req, res) {
         Thoughts.findOne({ _id: req.params.thoughtsId })
+            .populate({
+                path:'user',
+                select:('-__v')
+        })
           .select('-__v')
           .then(thoughtData => res.json(thoughtData))
           .catch((err) => {
