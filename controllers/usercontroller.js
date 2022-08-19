@@ -8,13 +8,15 @@ const userController = {
     },
     getAllUsers(req,res){
         User.find({})
-        .populate({
-            path:'thoughts', 
-            select:'-__v'})
-        .populate({
-            path:'friends',
-            select:'-__v'})
-        .select('-__v')
+        .populate("friends")
+        .populate("thoughts")
+        // .populate({
+        //     path:'Thoughts', 
+        //     select:'-__v'})
+        // .populate({
+        //     path:'friends',
+        //     select:'-__v'})
+        // .select('-__v')
         .then(data => res.json(data))
         .catch((err) => {
           console.log(err);
@@ -23,12 +25,8 @@ const userController = {
     },
     getSingleUser(req,res){
         User.findOne({_id:req.params.userId})
-        .populate({
-            path: 'thoughts', 
-            select: '-__v'})
-        .populate({
-            path: 'friends', 
-            select: '-__v'})
+        .populate("thoughts")
+        .populate("friends")
         .select('-__v')
         .then(data => res.json(data))
         .catch((err) =>{
@@ -45,7 +43,7 @@ const userController = {
         .then(data => res.json(data))
         .catch((err) =>{
             console.log(err);
-            res.statuse(500).json({message:"No user matches this id!"})
+            res.status(500).json({message:"No user matches this id!"})
         });
     },
     deleteUsers(req,res){
@@ -53,7 +51,7 @@ const userController = {
         .then(data => res.json(data))
         .catch((err) =>{
             console.log(err);
-            res.statuse(500).json({message:"No user matches this id!"})
+            res.status(500).json({message:"No user matches this id!"})
         });
     },
     addFriends(req,res){
@@ -65,7 +63,7 @@ const userController = {
         .then(data => res.json(data))
         .catch((err) =>{
             console.log(err);
-            res.statuse(500).json({message:"We found a error!"})
+            res.status(500).json({message:"We found a error!"})
         });
     },
     deleteFriends(req,res){
@@ -77,7 +75,7 @@ const userController = {
         .then(data => res.json(data))
         .catch((err) =>{
             console.log(err);
-            res.statuse(500).json({message:"We found a error!"})
+            res.status(500).json({message:"We found a error!"})
         });
     }
 
