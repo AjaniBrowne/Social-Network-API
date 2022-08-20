@@ -10,13 +10,6 @@ const userController = {
         User.find({})
         .populate("friends")
         .populate("thoughts")
-        // .populate({
-        //     path:'Thoughts', 
-        //     select:'-__v'})
-        // .populate({
-        //     path:'friends',
-        //     select:'-__v'})
-        // .select('-__v')
         .then(data => res.json(data))
         .catch((err) => {
           console.log(err);
